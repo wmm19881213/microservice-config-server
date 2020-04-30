@@ -1,0 +1,28 @@
+server:
+  port: 7788 #服务端口
+spring:
+  application:
+    name: app-config-server #指定服务名
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/wmm19881213/myspconfig.git
+          #search-paths:
+          #- myspringcloudconfig #配置文件目录地址
+          username: wmm19881213 #账号
+          password: 7301229wmm #密码
+        label: master #分支名称
+###服务注册到eureka注册中心的地址
+eureka:
+  client:
+    service-url:
+           defaultZone: http://zpc:123456@127.0.0.1:8100/eureka/,http://zpc:123456@127.0.0.1:9100/eureka/
+###因为该应用为服务提供者，是eureka的一个客户端，需要注册到注册中心
+    register-with-eureka: true
+###是否需要从eureka上检索服务
+    fetch-registry: true
+  instance:
+      prefer-ip-address: true #将自己的ip地址注册到Eureka服务中
+      instance-id: ${spring.application.name}###${server.port} #指定实例id
+    
